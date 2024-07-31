@@ -1,0 +1,506 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="portal/resources/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fluig-style@1.1.0/dist/fluig-style.min.css">
+	<link type="text/css" rel="stylesheet" href="style.css" />
+	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src="custom.js"></script>
+</head>
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form">
+			<input type="hidden" id="numAtividadeAtual" name="numAtividadeAtual" value="" />
+			<input type="hidden" id="status" name="status" value="" />
+			<input type="hidden" id="nomeDevolucao" name="nomeDevolucao" value="" />
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td rowspan='4' colspan='4' style="text-align:center; vertical-align:middle">
+								<img src="img/teste.png" alt="Logo"/>
+							</td>
+							<td rowspan='4' colspan='6' style="text-align:center; vertical-align:middle">
+								<h2><b>Solicitação Documentos</b></h2>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Elaborado em:</b> --- </td>
+						</tr>
+						<tr>
+							<td><b>Revisado em:</b> ----</td>
+						</tr>
+						<tr>
+							<td><b>Revisão:</b> 01</td>
+						</tr>
+						<tr>
+							<td colspan='12'>
+								<h5>Atividade: <b> Solicitação de documentos para o Arquivo </b></h5>
+							</td>
+						</tr>
+						<tr>
+							<td colspan='12'>
+								<h5>Responsável: <b> Arquivo </b></h5>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel panel-default" id="DadosSolicitacao">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Dados da solicitação</b>
+					</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-4">
+							<label for="numeroSolicitacao"><strong>Número da solicitação</strong></label>
+							<input type="text" class="form-control" name="numeroSolicitacao" id="numeroSolicitacao"
+								readonly>
+						</div>
+						<div class="col-md-4">
+							<label for="nomeSolicitante"><strong>Nome do solicitante</strong></label>
+							<input type="text" class="form-control" name="nomeSolicitante" id="nomeSolicitante"
+								readonly>
+						</div>
+						<div class="col-md-4">
+							<label for="dataSolicitacao"><strong>Data de abertura da solicitação</strong></label>
+							<input type="date" class="form-control" name="dataSolicitacao" id="dataSolicitacao"
+								readonly>
+						</div>
+						<div type="hidden">
+							<input type="hidden" class="form-control" name="matriculaSolicitante"
+								id="matriculaSolicitante">
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="panel panel-default" id="dadosArquivoSol">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Dados do Arquivo Solicitado</b>
+					</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-3">															
+							<label for="areaAval">Qual área?</label>
+							<select class="form-control" name="areaAval" id="areaAval">
+								<option value="">Informe uma opção</option>
+								<option>Cópia de Prontuário</option>
+								<option>Jurídico</option>
+								<option>Contas a Receber</option>
+								<option>Auditoria</option>
+								<option>Guias</option>
+								<option>Setores</option>
+							</select>
+						</div>
+						<div class="col-md-2" id="dataFatura">
+							<label for="dataFatura"><strong>Data Fatura</strong></label>
+							<input type="date" class="form-control" name="dataFatura">
+						</div>
+						<div class="col-md-2" id="numeroFatura">
+							<label for="numeroFatura"><strong>Nº Fatura</strong></label>
+							<input type="text" class="form-control" name="numeroFatura">
+						</div>
+						<div class="col-md-2" id="numeroProntuario">
+							<label for="numeroProntuario"><strong>Nº Prontuário</strong></label>
+							<input type="number" class="form-control" name="numeroProntuario">
+						</div>
+						<div class="col-md-3">
+							<label for="convenio">Convênio</label>
+							<select class="form-control" name="convenio" id="convenio"
+								dataset="ds_convenios" datasetkey="SIGLA" datasetvalue="SIGLA" addBlankLine="true">
+							</select>	
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-3" id="nomePaciente">
+							<label for="nomePaciente"><strong>Nome do Paciente</strong></label>
+							<input type="text" class="form-control" name="nomePaciente">
+						</div>
+						<div class="col-md-3" id="numeroCaixa">
+							<label for="numeroCaixa"><strong>Nº caixa</strong></label>
+							<input type="number" class="form-control" name="numeroCaixa">
+						</div>
+						<div class="col-md-3" id="setorRequisicao">
+							<label for="setorRequisicao"><strong>Setor Requisição</strong></label>
+							<input type="text" class="form-control" name="setorRequisicao">
+						</div>
+						<div class="col-md-3" id="setorRequisitado">
+							<label for="setorRequisitado"><strong>Setor Requisitado</strong></label>
+							<input type="text" class="form-control" name="setorRequisitado">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-3" id="atendimento">
+							<label for="atendimento"><strong>Atendimento</strong></label>
+							<input type="text" class="form-control" name="atendimento">
+						</div>
+						<div class="col-md-3" id="parcial">
+							<label for="parcial"><strong>Parcial</strong></label>
+							<input type="text" class="form-control" name="parcial">
+						</div>
+						<div class="col-md-2" id="urgencia">
+							<label class="control-label" for="urgencia">Urgencia?</label>
+							<div class="form-group">
+								<label class="radio-inline">
+									<input type="radio" name="urgenciaAval" id="simUrgencia" value="sim"> Sim
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="urgenciaAval" id="naoUrgencia" value="nao"> Não
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-9">
+							<label for="observacaoAbertura"><strong>Justificativa:</strong></label>
+							<textArea class="form-control" name="observacaoAbertura"
+								id="observacaoAbertura"></textArea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default" id="assinarArea">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Entrega do documento a área</b>
+					</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-3" id="entregaArquivo">
+							<label class="control-label" for="entregaArquivo">Documento Encontrado?</label>
+							<div class="form-group">
+								<label class="radio-inline">
+									<input type="radio" name="entregueArquivo" id="simEntregue" value="sim"> Sim
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="entregueArquivo" id="naoEntregue" value="nao"> Não
+								</label>
+							</div>
+						</div>
+						<div class="col-md-9">
+							<label for="observacaoEntregaArq"><strong>Justificativa</strong></label>
+							<textArea class="form-control" name="observacaoEntregaArq"
+								id="observacaoEntregaArq"></textArea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-9">
+							<label for="nomeEntregaDoc"><strong>Entregue para:</strong></label>
+							<input type="text" class="form-control" name="nomeEntregaDoc" id="nomeEntregaDoc" readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="dataEntregaDoc"><strong>Data do Recebimento:</strong></label>
+							<input type="date" class="form-control" name="dataEntregaDoc" id="dataEntregaDoc" readonly>
+						</div>	
+					</div>
+					<div class="col-md-3 form-group row">
+						<button id="openSignatureModal" class="btn btn-primary">Clique para Assinar</button>
+						<input type="hidden" id="signature" name="signature">
+						<input type="hidden" id="decRecebimento" name="decRecebimento">
+					</div>
+				</div>
+				<div id="signatureImageDisplay" class="text-center mt-3"></div>
+			</div>
+			<div id="signatureModal" class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title">Assinatura</h5>
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+					<div class="modal-body">
+						<p id="declaracaoRecebimento"></p>
+						<canvas id="signatureCanvas" style="border: 1px solid #000; width: 90%; max-width: 600px; height: 200px;"></canvas>
+					</div>
+					<div class="modal-footer">
+					  <button id="clearSignature" class="btn btn-secondary">Limpar</button>
+					  <button id="saveSignature" class="btn btn-primary">Salvar</button>
+					</div>
+				  </div>
+				</div>
+			</div>
+			<div class="panel panel-default" id="assinarAreaDev">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Devolução do documento a área</b>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-3" id="pendenteDevSetor">
+							<label class="control-label" for="pendenteDevSetor">Documento Devolvido pelo Setor?</label>
+							<div class="form-group">
+								<label class="radio-inline">
+									<input type="radio" name="devSetor" id="devSim" value="sim"> Sim
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="devSetor" id="devNao" value="nao"> Não
+								</label>
+							</div>
+						</div>
+						<div class="col-md-9">
+							<label for="obsDevolucao"><strong>Justificativa</strong></label>
+							<textArea class="form-control" name="obsDevolucao"
+								id="obsDevolucao"></textArea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-9">
+							<label for="nomeSetorRecebimento"><strong>Devolvido para:</strong></label>
+							<input type="text" class="form-control" name="nomeSetorRecebimento" id="nomeSetorRecebimento" readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="dataSetorRecebimento"><strong>Data da Devolução:</strong></label>
+							<input type="date" class="form-control" name="dataSetorRecebimento" id="dataSetorRecebimento" readonly>
+						</div>	
+					</div>
+					<div class="col-md-3 form-group row">
+						<button id="openSignatureModalDev" class="btn btn-primary">Clique para Assinar</button>
+						<input type="hidden" id="signatureDev" name="signatureDev">
+						<input type="hidden" id="decDevolucao" name="decDevolucao">
+					</div>
+				</div>
+				<div id="signatureImageDisplayDev" class="text-center mt-3"></div>
+			</div>
+			<div id="signatureModalDevolucao" class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title">Assinatura</h5>
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+					<div class="modal-body">
+						<p id="declaracaoRecebimentoDev"></p>
+						<canvas id="signatureCanvasDev" style="border: 1px solid #000; width: 90%; max-width: 600px; height: 200px;"></canvas>
+					</div>
+					<div class="modal-footer">
+					  <button id="clearSignatureDev" class="btn btn-secondary">Limpar</button>
+					  <button id="saveSignatureDev" class="btn btn-primary">Salvar</button>
+					</div>
+				  </div>
+				</div>
+			</div>
+			<!-- <div class="panel panel-default" id="dadosConfirmacaoArq">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Confirmação Entrega Arquivo</b>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-3" id="entregaArquivo">
+							<label class="control-label" for="entregaArquivo">Entregue?</label>
+							<div class="form-group">
+								<label class="radio-inline">
+									<input type="radio" name="entregueArquivo" id="simEntregue" value="sim"> Sim
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="entregueArquivo" id="naoEntregue" value="nao"> Não
+								</label>
+							</div>
+						</div>
+						<div class="col-md-9">
+							<label for="observacaoEntregaArq"><strong>Justificativa</strong></label>
+							<textArea class="form-control" name="observacaoEntregaArq"
+								id="observacaoEntregaArq"></textArea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-9">
+							<label for="entreguePor"><strong>Entregue por:</strong></label>
+							<input type="text" class="form-control" name="entreguePorArquivo" id="entreguePorArquivo" readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="dataEntrega"><strong>Data da entrega</strong></label>
+							<input type="date" class="form-control" name="dataEntregaArquivo" id="dataEntregaArquivo" readonly>
+						</div>
+						<div>
+							<input type="hidden" class="form-control" name="matEntregaArquivo" id="matEntregaArquivo">
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="panel panel-default" id="dadosSetorConfirmReceb">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Dados Setor Confirma Recebimento</b>
+					</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-3" id="receberdoSetor">
+							<label class="control-label" for="receberdoSetor">Documento Recebido?</label>
+							<div class="form-group">
+								<label class="radio-inline">
+									<input type="radio" name="recebidoSetor" id="simRecebido" value="sim"> Sim
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="recebidoSetor" id="naoRecebido" value="nao"> Não
+								</label>
+							</div>
+						</div>
+						<div class="col-md-9">
+							<label for="obsSetConf"><strong>Justificativa</strong></label>
+							<textArea class="form-control" name="obsSetConf"
+								id="obsSetConf"></textArea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-9">
+							<label for="nomeSetorRecebimento"><strong>Recebido por:</strong></label>
+							<input type="text" class="form-control" name="nomeSetorRecebimento" id="nomeSetorRecebimento" readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="dataSetorRecebimento"><strong>Data do Recebimento:</strong></label>
+							<input type="date" class="form-control" name="dataSetorRecebimento" id="dataSetorRecebimento" readonly>
+						</div>
+						<div>
+			
+							<input type="hidden" class="form-control" name="matSetorRecebimento" id="matSetorRecebimento">
+						</div>
+			
+					</div>
+			
+			
+			
+				</div>
+			</div>
+			<div class="panel panel-default" id="dadosPendDevolucao">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Dados Pendente Devolucao</b>
+					</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-3" id="pendenteDevSetor">
+							<label class="control-label" for="pendenteDevSetor">Documento Devolvido pelo Setor?</label>
+							<div class="form-group">
+								<label class="radio-inline">
+									<input type="radio" name="devSetor" id="devSim" value="sim"> Sim
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="devSetor" id="devNao" value="nao"> Não
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<label for="obsDevolucao"><strong>Justificativa</strong></label>
+						<textArea class="form-control" name="obsDevolucao"
+							id="obsDevolucao"></textArea>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-9">
+							<label for="nomeRecebimentoDevolucao"><strong>Recebido por:</strong></label>
+							<input type="text" class="form-control" name="nomeRecebimentoDevolucao" id="nomeRecebimentoDevolucao" readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="dataRecebimentoDevolucao"><strong>Data do recebimento:</strong></label>
+							<input type="date" class="form-control" name="dataRecebimentoDevolucao" id="dataRecebimentoDevolucao" readonly>
+						</div>
+						<div>
+							<input type="hidden" class="form-control" name="matRecebimentoDevolucao" id="matRecebimentoDevolucao">
+						</div>
+			
+					</div>
+				</div>
+			</div> -->
+			<div class="panel panel-default" id="dadosEnviarCelula">
+				<div class="panel-heading panel-color" style="background-color: #F2F2F2;">
+					<h3 class="panel-title">
+						<b>Dados Enviar para celula</b>
+					</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="form-group row">
+						<div class="col-md-3" id="enviarCelula">
+							<label class="control-label" for="enviarCelula">Documento enviado para Celula?</label>
+							<div class="form-group">
+								<label class="radio-inline">
+									<input type="radio" name="enviadoCelula" id="enviadoCelulaSim" value="sim"> Sim
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="enviadoCelula" id="enviadoCelulaNao" value="nao"> Não
+								</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<div class="col-md-9">
+							<label for="nomeEnvioCelula"><strong>Enviado por:</strong></label>
+							<input type="text" class="form-control" name="nomeEnvioCelula" id="nomeEnvioCelula" readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="dataEnvioCelula"><strong>Data da entrega:</strong></label>
+							<input type="date" class="form-control" name="dataEnvioCelula" id="dataEnvioCelula" readonly>
+						</div>
+						<div>
+							<input type="hidden" class="form-control" name="matEnvioCelula" id="matEnvioCelula">
+						</div>
+			
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info fs-xl-margin-top" id="painelInfosPostRm">
+				<div class="panel-heading fs-sm-padding-top fs-sm-padding-bottom panel-color">
+					<h3 class="panel-title">
+						<b>Dados para utilizar no post RM</b>
+					</h3>
+				</div>
+				<div class="panel-body fs-sm-margin-top">
+					<div class="row">
+						<div class="block">
+							<label for="CODCOLIGADA">Coligada:</label>
+							<input type="text" id="CODCOLIGADA" name="CODCOLIGADA" value="1" readonly />
+						</div>
+						<div class="block">
+							<label for="CODCONTROLE">Cod Controle:</label>
+							<input type="text" id="CODCONTROLE" name="CODCONTROLE" />
+						</div>
+						<div class="block">
+							<label for="CODTIPODOC">Cod. Tipo Documento:</label>
+							<input type="text" id="CODTIPODOC" name="CODTIPODOC" value="4" />
+						</div>
+						<div class="block">
+							<label for="SEQUENCIAL">SEQUENCIAL:</label>
+							<input type="text" id="SEQUENCIAL" name="SEQUENCIAL" />
+						</div>
+						<div class="block">
+							<label for="NOME">NOME:</label>
+							<input type="text" id="NOME" name="NOME" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+

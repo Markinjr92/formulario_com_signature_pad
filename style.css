@@ -1,0 +1,38 @@
+.panel-color{
+	background-color:#30316A !important;
+	color:white !important;
+}
+
+.highlight-blue {
+    background-color: #e5ecff !important;
+}
+.margem-top{
+	margin-top: 15px;
+}
+
+.vermelho{
+	color: #cc3d3d !important;
+}
+.verde{
+	color: #2bdd25 !important;
+}
+
+.none{
+	display: none !important;
+}
+.colocaPadding{
+	padding: 15px !important;
+}
+.colocaPadding2{
+	padding: 15px !important;
+}
+
+.wrapper {
+	position: relative;
+	width: 400px;
+	height: 200px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
